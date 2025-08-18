@@ -16,19 +16,24 @@
   "main": "server.ts",
   "scripts": {
     "frontend": "npm run dev --prefix frontend",
-    "backend": "nodemon backend/server.ts",
+    "backend": "nodemon --exec \"node --import tsx\" src/server.ts",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@types/express": "^5.0.3",
     "@types/node": "^24.2.1",
     "concurrently": "^9.2.0",
     "eslint": "^9.33.0",
     "globals": "^16.3.0",
     "jiti": "^2.5.1",
     "nodemon": "^3.1.10",
-    "tsc-node": "^0.0.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.4",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.39.1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
   }
 }
