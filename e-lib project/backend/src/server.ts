@@ -1,12 +1,10 @@
-import type { Express, Request, Response } from "express";
-import express from "express";
+import app from "./app/app.js";
+import dotenv from "dotenv";
 
-const app: Express = express();
+dotenv.config();
 
-app.use("/", (req: Request, res: Response) => {
-  return res.json({ message: "hello developer" });
-});
+const port = process.env.PORT || 3000;
 
-app.listen(3000, () => {
-  console.log("listening");
+app.listen(port, () => {
+  console.log("listening on port", port);
 });
