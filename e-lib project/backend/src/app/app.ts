@@ -4,6 +4,7 @@ import globalErrorHandler from "../middlewares/globalErrorHandler.js";
 
 const app: Express = express();
 
+// middleware
 app.use(globalErrorHandler);
 
 app.use("/", (req: Request, res: Response) => {
