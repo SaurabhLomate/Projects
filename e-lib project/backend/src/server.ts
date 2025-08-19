@@ -4,6 +4,6 @@ import connectDb from "./config/db.js";
 
 app.listen(config.port, () => {
   //! database connection
-  connectDb(config.mongo_uri!);
+  connectDb(config.mongo_uri as string);
   console.log("listening on port", config.port);
 });
