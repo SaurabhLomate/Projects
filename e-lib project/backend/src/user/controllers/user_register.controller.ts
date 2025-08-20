@@ -11,7 +11,7 @@ import createHttpError from "http-errors";
  */
 const userRegister = (req: Request, res: Response, next: NextFunction) => {
   const { username, email, password, avatar } = req.body;
-  
+
   if (!username || !email || !password) {
     const error = createHttpError(400, "please pass all fields");
     return next(error);
