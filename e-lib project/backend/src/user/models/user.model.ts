@@ -1,12 +1,16 @@
-import { compare, hash } from "bcryptjs";
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import type { Model, Document } from "mongoose";
+import { compare, hash } from "bcryptjs";
+import jwt from "jsonwebtoken";
+import config from "../../config/config.js";
 
 interface User extends Document {
   username: string;
   email: string;
   password: string;
-  avatar: string;
+  avatar?: string;
+  isPasswordCorrect: (password: string) => Promise<boolean>;
+  generateToken: () => string;
 }
 const userSchema: Schema<User> = new Schema(
   {
@@ -47,12 +51,33 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.isPasswordCorrect = async function (password: string) {
   try {
-    await compare(password, this.password);
+    return await compare(password, this.password);
   } catch (error) {
     console.log(`error occured during comparing password ${error}`);
   }
 };
 
-const User = (models.User as Model<User>) || model<User>("User", userSchema);
+userSchema.methods.generateToken = function () {
+  try {
+    const payload = {
+      _id: this._id,
+      username: this.username,
+      avatar: this.avatar,
+    };
+
+    if (!config.jwt_secret_key) {
+      throw new Error("JWT secret key is not defined in config.");
+    }
+    return jwt.sign(payload, config.jwt_secret_key, {
+      expiresIn: "10d",
+      algorithm: "HS256",
+    });
+  } catch (error) {
+    console.log(`error occured during generating token ${error}`);
+  }
+};
+
+const User =
+  (mongoose.models.User as Model<User>) || model<User>("User", userSchema);
 
 export default User;
