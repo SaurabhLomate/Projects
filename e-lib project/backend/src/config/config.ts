@@ -7,6 +7,9 @@ const _config = {
   env: process.env.NODE_ENV,
   jwt_secret_key: process.env.JWT_SECRET_KEY,
   jwt_expiry: process.env.JWT_EXPIRY,
+  cloud_name: process.env.CLOUD_NAME,
+  cloud_api_key: process.env.CLOUD_API_KEY,
+  cloud_api_secret: process.env.CLOUD_API_SECRET,
 };
 
 export default Object.freeze(_config);

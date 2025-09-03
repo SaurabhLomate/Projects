@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import createHttpError from "http-errors";
 import User from "../models/user.model.js";
+import cloudinary_upload from "../../config/cloudinary.js";
 
 /**
  * take info from req.body
@@ -34,8 +35,12 @@ const userRegister = async (
     const avatar = req.file.path;
 
     // cloudinary
-
-    user = await User.create({ username, email, password, avatar });
+    const { secure_url } = await cloudinary_upload(avatar);
+    if (!secure_url) {
+      const error = createHttpError(401, "failed to fetch avatar url");
+      return next(error);
+    }
+    user = await User.create({ username, email, password, avatar: secure_url });
   } else {
     user = await User.create({ username, email, password });
   }
