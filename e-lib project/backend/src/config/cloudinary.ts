@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import config from "./config.js";
-
+import fs from "node:fs/promises";
 cloudinary.config({
   cloud_name: config.cloud_name,
   api_key: config.cloud_api_key,
@@ -9,7 +9,11 @@ cloudinary.config({
 
 const cloudinary_upload = async (url: string) => {
   try {
-    return await cloudinary.uploader.upload(url, { resource_type: "image" });
+    const response = await cloudinary.uploader.upload(url, {
+      resource_type: "image",
+    });
+    fs.unlink(url);
+    return response;
   } catch (error) {
     console.log(error);
     process.exit(1);
