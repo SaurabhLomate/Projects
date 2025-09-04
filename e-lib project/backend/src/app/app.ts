@@ -5,7 +5,7 @@ import type { Express, Request, Response } from "express";
 
 import globalErrorHandler from "../middlewares/globalErrorHandler.js";
 import userRouter from "../user/routes/user.route.js";
-
+import bookRouter from "../book/routes/book.route.js";
 const app: Express = express();
 
 app.get("/", (req: Request, res: Response) => {
@@ -15,6 +15,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use(express.static("../src/public"));
 app.use(express.json());
 app.use("/api/users", userRouter);
+app.use("/api/books", bookRouter);
 
 // The global error handler should be the last middleware so it can catch errors from all previous routes and middleware.
 app.use(globalErrorHandler);
