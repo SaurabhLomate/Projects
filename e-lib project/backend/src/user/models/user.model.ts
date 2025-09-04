@@ -33,7 +33,7 @@ const userSchema: Schema<User> = new Schema(
     avatar: {
       type: String,
       default:
-        "https://res.cloudinary.com/dcu3dqzfc/image/upload/v1756899293/w7s9qev6dctmgfuifjsp.jpg",
+        "https://res.cloudinary.com/dcu3dqzfc/image/upload/v1756920241/a5rw9izetvdh97mbsdh1.webp",
     },
   },
   { timestamps: true }

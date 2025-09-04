@@ -54,11 +54,11 @@ const userRegister = async (
     return next(error);
   }
 
-  const jwt_token = await created_user?.generateToken();
-  res.cookie("token", jwt_token, { httpOnly: true, secure: true });
+  // const jwt_token = await created_user?.generateToken();
+  // res.cookie("token", jwt_token, { httpOnly: true, secure: true });
 
   res.status(201).json({
-    message: "register controller",
+    message: "user registered successfully",
     success: true,
     data: created_user,
   });
