@@ -1,18 +1,11 @@
 import mongoose, { Schema, model } from "mongoose";
-import type { Model, Document } from "mongoose";
+import type { Model } from "mongoose";
 import { compare, hash } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import config from "../../config/config.js";
+import { UserType } from "../types/user.type.js";
 
-interface User extends Document {
-  username: string;
-  email: string;
-  password: string;
-  avatar?: string;
-  isPasswordCorrect: (password: string) => Promise<boolean>;
-  generateToken: () => string;
-}
-const userSchema: Schema<User> = new Schema(
+const userSchema: Schema<UserType> = new Schema(
   {
     username: {
       type: String,
@@ -60,9 +53,10 @@ userSchema.methods.isPasswordCorrect = async function (password: string) {
 
 userSchema.methods.generateToken = function () {
   try {
-    const payload = {
+    const payload: jwt.JwtPayload = {
       _id: this._id,
       username: this.username,
+      email: this.email,
       avatar: this.avatar,
     };
 
@@ -79,6 +73,7 @@ userSchema.methods.generateToken = function () {
 };
 
 const User =
-  (mongoose.models.User as Model<User>) || model<User>("User", userSchema);
+  (mongoose.models.User as Model<UserType>) ||
+  model<UserType>("User", userSchema);
 
 export default User;
