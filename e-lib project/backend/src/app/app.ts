@@ -1,5 +1,6 @@
 import express from "express";
 import type { Express, Request, Response } from "express";
+import cookieParser from "cookie-parser";
 
 // import { join } from "node:path";
 
@@ -12,8 +13,11 @@ app.get("/", (req: Request, res: Response) => {
   return res.json({ message: "hello developer" });
 });
 
+// middlewares
 app.use(express.static("../src/public"));
 app.use(express.json());
+app.use(cookieParser());
+
 app.use("/api/users", userRouter);
 app.use("/api/books", bookRouter);
 
