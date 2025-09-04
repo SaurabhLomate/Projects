@@ -35,7 +35,8 @@ const userRegister = async (
     const avatar = req.file.path;
 
     // cloudinary
-    const { secure_url } = await cloudinary_upload(avatar);
+    const { secure_url } = await cloudinary_upload(avatar, "image");
+
     if (!secure_url) {
       const error = createHttpError(401, "failed to fetch avatar url");
       return next(error);
