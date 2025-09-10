@@ -38,7 +38,11 @@ const registerBook = async (
   }
   // upload coverImage and file to cloudinary
 
-  const cloud_coverImage = await cloudinary_upload(coverImage.path, "image");
+  const cloud_coverImage = await cloudinary_upload(
+    coverImage.path,
+    "image",
+    "cover_images"
+  );
   if (!cloud_coverImage) {
     const error = createHttpError(
       400,
@@ -47,7 +51,7 @@ const registerBook = async (
     return next(error);
   }
 
-  const cloud_pdf = await cloudinary_upload(pdf_file.path, "raw");
+  const cloud_pdf = await cloudinary_upload(pdf_file.path, "raw", "book_pdfs");
   if (!cloud_pdf) {
     const error = createHttpError(
       400,
