@@ -83,9 +83,12 @@ const updateBook = async (req: Request, res: Response, next: NextFunction) => {
           ? cloud_coverImage?.secure_url
           : fetched_book.coverImage,
         file: multer_file_pdf ? cloud_file_pdf?.secure_url : fetched_book.file,
-      }
+      },
+      { new: true }
     );
-    res.json({
+    console.log(updated_book?.title);
+
+    res.status(200).json({
       message: "successfully updated the book",
       success: true,
       data: updated_book,
