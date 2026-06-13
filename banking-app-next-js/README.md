@@ -10,4 +10,5 @@ setup project and create some css utilities and classes
 
 all pages except **sign-in** and **sign-up** has same sidebar. so we group routes in a manner that all routes except **sign-in** and **sign-up** will have similar sidebar.  
  `app->(root)->all_routes` this route contain same sidebar.  
- `app->(auth)->sign-up/sign-in` this routes does not contain sidebar.
+ `app->(auth)->sign-up/sign-in` this routes does not contain sidebar.  
+ and also created `global.d.ts` so the TypeScript will know how to handle CSS imports.
